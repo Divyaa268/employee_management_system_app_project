@@ -15,9 +15,21 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from django.urls import include
+from django.shortcuts import render, HttpResponse
+from .models import Employee, Role, Department
+from datetime import datetime
+from django.db.models import Q
+from django.contrib import admin
+from django.urls import path, include
+from . import views
+
+# import employee_mgmt_system_proj.emp_app.views as views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('emp_app.urls'))  # Adding this To Route to the application from here
+    path('', views.index, name='index'),  # Routing to index page, sits at the root link
+    # path('all_emp', views.all_emp, name='all_emp'),
+    # path('add_emp', views.add_emp, name='add_emp'),
+    # path('remove_emp', views.remove_emp, name='remove_emp'),
+    # path('remove_emp/<int:emp_id>', views.remove_emp, name='remove_emp'),
+    # path('filter_emp', views.filter_emp, name='filter_emp'),
 ]
