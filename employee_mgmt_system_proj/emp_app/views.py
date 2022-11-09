@@ -52,3 +52,5 @@ def all_emp(request):
     print("Data Loaded into context successfully....")
     print("Returning the rendered Page...")
     return render(request, 'view_all_emp.html', context)
+
+
