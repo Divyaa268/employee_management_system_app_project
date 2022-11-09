@@ -34,3 +34,21 @@ def add_emp(request):
         return render(request, 'add_emp.html')
     else:
         return HttpResponse("Entity could not be added!!!")
+
+def all_emp(request):
+    print("inside routine all_emp()")
+
+    print("View All Employee Data")
+
+    print("Fetching all Employees from DB.....")
+    emps = Employee.objects.all()
+    print("Data Fetched Successfully....")
+
+    print("Loading Data into Context, for it to be rendered on the webpage")
+    context = {
+        'emps': emps
+    }
+    print(context)
+    print("Data Loaded into context successfully....")
+    print("Returning the rendered Page...")
+    return render(request, 'view_all_emp.html', context)
