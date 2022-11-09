@@ -48,6 +48,15 @@ class test_templates_exist(SimpleTestCase):
 
         assert isfile('emp_app/templates/index.html')
 
+    def test_view_remove_emp(self):
+        #Checks if the page to add employee exists
+        file_name = 'emp_app/templates/remove_emp.html'
+        if not isfile(file_name):
+            print("File " + file_name + " Does Not Exist, Test Case Failed")
+        else:
+            print("File Exists Test Case is Successful")
+
+        assert isfile('emp_app/templates/remove_emp.html')
 
 
 
@@ -78,6 +87,16 @@ class test_urls(SimpleTestCase):
         print(resolve(url))  # Printing what we get after resolving the URL, i.e. method to be called
 
         self.assertEquals(resolve(url).func,views.add_emp) #It should Route to this function
+
+
+    def test_remove_emp_url_resolved(self):
+        # for routing : path('remove_emp', views.remove_emp, name='remove_emp')
+        url = reverse('remove_emp')
+        print("url is : " + url)  # Returns '/' : the Path we defined
+        print(resolve(url))  # Printing what we get after resolving the URL, i.e. method to be called
+
+        self.assertEquals(resolve(url).func, views.add_emp)  # It should Route to this function
+
 
 # --------------------------------------------------------
 
@@ -119,6 +138,18 @@ class TestViews(TestCase):
 
         # Check if we loaded the Correct Template i.e. HTML page
         self.assertTemplateUsed(response, 'add_emp.html')
+
+    def test_project_remove_emp(self):
+        # Created new Object of Client
+        client = Client()
+
+        response = client.get(reverse('remove_emp'))
+
+        # Check if we got an OK Http Response
+        self.assertEquals(response.status_code, 200)  # 200 = http OK, we were able to access
+
+        # Check if we loaded the Correct Template i.e. HTML page
+        self.assertTemplateUsed(response, 'remove_emp.html')
 
 # -------------------------------------------------------------------------------
 #Testing Models/ DB Schema
