@@ -49,6 +49,8 @@ class test_templates_exist(SimpleTestCase):
         assert isfile('emp_app/templates/index.html')
 
 
+
+
 # --------------------------------------------------------------------------------
 
 #Testing Views
@@ -119,3 +121,6 @@ class TestViews(TestCase):
         self.assertTemplateUsed(response, 'add_emp.html')
 
 # -------------------------------------------------------------------------------
+#Testing Models/ DB Schema
+
+

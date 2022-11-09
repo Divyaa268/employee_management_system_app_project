@@ -53,4 +53,18 @@ def all_emp(request):
     print("Returning the rendered Page...")
     return render(request, 'view_all_emp.html', context)
 
+def remove_emp(request, emp_id = 0):
+    if emp_id:
+        try:
+            emp_to_be_removed = Employee.objects.get(id=emp_id)
+            emp_to_be_removed.delete()
+            return HttpResponse("Employee Removed Successfully")
+        except:
+            return HttpResponse("Please Enter A Valid EMP ID")
+    emps = Employee.objects.all()
+    context = {
+        'emps': emps
+    }
+    return render(request, 'remove_emp.html',context)
+
 
