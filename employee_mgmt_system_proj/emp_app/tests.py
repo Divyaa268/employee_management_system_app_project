@@ -2,10 +2,12 @@ from os import getcwd
 from os.path import isfile
 
 from django.test import TestCase
-from django.test import SimpleTestCase
+from django.test import SimpleTestCase, Client
 
 from django.urls import reverse, resolve
 from . import views
+from . import models
+import json
 
 
 # Create your tests here.
@@ -75,3 +77,45 @@ class test_urls(SimpleTestCase):
 
         self.assertEquals(resolve(url).func,views.add_emp) #It should Route to this function
 
+# --------------------------------------------------------
+
+class TestViews(TestCase):
+    #Testing Get All Employees
+    def test_project_GET_all_emp(self):
+        #Created new Object of Client
+        client = Client()
+
+        response = client.get(reverse('all_emp'))
+
+        #Check if we got a OK Http Response
+        self.assertEquals(response.status_code, 200)#200 = http OK, we were able to access
+
+        # Check if we loaded the Correct Template i.e. HTML page
+        self.assertTemplateUsed(response, 'view_all_emp.html')
+
+    def test_project_index(self):
+        #Created new Object of Client
+        client = Client()
+
+        response = client.get(reverse('index'))
+
+        #Check if we got a OK Http Response
+        self.assertEquals(response.status_code, 200)#200 = http OK, we were able to access
+
+        # Check if we loaded the Correct Template i.e. HTML page
+        self.assertTemplateUsed(response, 'index.html')
+
+
+    def test_project_add_emp(self):
+        #Created new Object of Client
+        client = Client()
+
+        response = client.get(reverse('add_emp'))
+
+        #Check if we got an OK Http Response
+        self.assertEquals(response.status_code, 200)#200 = http OK, we were able to access
+
+        # Check if we loaded the Correct Template i.e. HTML page
+        self.assertTemplateUsed(response, 'add_emp.html')
+
+# -------------------------------------------------------------------------------
