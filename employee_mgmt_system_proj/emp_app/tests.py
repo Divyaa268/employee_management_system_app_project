@@ -95,7 +95,7 @@ class test_urls(SimpleTestCase):
         print("url is : " + url)  # Returns '/' : the Path we defined
         print(resolve(url))  # Printing what we get after resolving the URL, i.e. method to be called
 
-        self.assertEquals(resolve(url).func, views.add_emp)  # It should Route to this function
+        self.assertEquals(resolve(url).func, views.remove_emp)  # It should Route to this function
 
 
 # --------------------------------------------------------
