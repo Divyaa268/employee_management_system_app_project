@@ -68,3 +68,27 @@ def remove_emp(request, emp_id = 0):
     return render(request, 'remove_emp.html',context)
 
 
+def filter_emp(request):
+    if request.method == 'POST':
+        name = request.POST['name']
+        dept = request.POST['dept']
+        role = request.POST['role']
+        emps = Employee.objects.all()
+        if name:
+            emps = emps.filter(Q(first_name__icontains = name) | Q(last_name__icontains = name))
+        if dept:
+            emps = emps.filter(dept__name__icontains = dept)
+        if role:
+            emps = emps.filter(role__name__icontains = role)
+
+        context = {
+            'emps': emps
+        }
+        return render(request, 'view_all_emp.html', context)
+
+    elif request.method == 'GET':
+        return render(request, 'filter_emp.html')
+    else:
+        return HttpResponse('An Exception Occurred')
+
+
