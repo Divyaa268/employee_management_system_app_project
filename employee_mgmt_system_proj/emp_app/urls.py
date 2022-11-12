@@ -34,4 +34,5 @@ urlpatterns = [
     path('filter_emp', views.filter_emp, name='filter_emp'),
     path('manager_of_company', views.manager_of_company, name='manager_of_company'),
     path('ceo_details', views.ceo_details, name='ceo_details'),
+    path('regular_employee', views.regular_employee, name='regular_employee'),
 ]

@@ -134,5 +134,21 @@ def ceo_details(request):
         return render(request, 'ceo_details.html', {'query': query})
 
 
+def regular_employee(request):
+    cursor = connection.cursor()
+    # Example of Parameterised Query as Expected in the Project
+    parameter_is_manager = 'N'  # Indicates that Employee is a Manager
+    try:
+        cursor.execute(
+            "SELECT first_name, last_name, phone FROM emp_app_employee where is_manager = " + "\'" + parameter_is_manager + "\'")
+    except:
+        print("Exception Occurred in manager_of_company() ")
+    finally:
+        query = cursor.fetchall()
+        cursor.close()
+    print("Manager Records are : ")
+    print(query)
+    return render(request, 'regular_employee.html', {'query': query})
+
 
 

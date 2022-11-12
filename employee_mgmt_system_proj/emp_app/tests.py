@@ -145,6 +145,30 @@ class test_urls(SimpleTestCase):
 
         self.assertEquals(resolve(url).func, views.filter_emp)  # It should Route to this function
 
+    def test_filter_reg_emp_url_resolved(self):
+
+        # path('regular_employee', views.regular_employee, name='regular_employee'),
+        url = reverse('regular_employee')
+        print("url is : " + url)  # Returns '/' : the Path we defined
+        print(resolve(url))  # Printing what we get after resolving the URL, i.e. method to be called
+
+        self.assertEquals(resolve(url).func, views.regular_employee)# It should Route to this function
+
+    def test_filter_manager_url_resolved(self):
+        # path('manager_of_company', views.manager_of_company, name='manager_of_company'),
+        url = reverse('manager_of_company')
+        print("url is : " + url)  # Returns '/' : the Path we defined
+        print(resolve(url))  # Printing what we get after resolving the URL, i.e. method to be called
+
+        self.assertEquals(resolve(url).func, views.manager_of_company)  # It should Route to this function
+
+    def test_filter_ceo_url_resolved(self):
+        # path('ceo_details', views.ceo_details, name='ceo_details'),
+        url = reverse('ceo_details')
+        print("url is : " + url)  # Returns '/' : the Path we defined
+        print(resolve(url))  # Printing what we get after resolving the URL, i.e. method to be called
+
+        self.assertEquals(resolve(url).func, views.ceo_details)  # It should Route to this function
 
 # --------------------------------------------------------
 
@@ -210,6 +234,41 @@ class TestViews(TestCase):
 
         # Check if we loaded the Correct Template i.e. HTML page
         self.assertTemplateUsed(response, 'filter_emp.html')
+    def test_project_manager(self):
+        # Created new Object of Client
+        client = Client()
+
+        response = client.get(reverse('manager_of_company'))
+
+        # Check if we got an OK Http Response
+        self.assertEquals(response.status_code, 200)  # 200 = http OK, we were able to access
+
+        # Check if we loaded the Correct Template i.e. HTML page
+        self.assertTemplateUsed(response, 'manager_of_company.html')
+    def test_project_reg_emp(self):
+        # Created new Object of Client
+        client = Client()
+
+        response = client.get(reverse('regular_employee'))
+
+        # Check if we got an OK Http Response
+        self.assertEquals(response.status_code, 200)  # 200 = http OK, we were able to access
+
+        # Check if we loaded the Correct Template i.e. HTML page
+        self.assertTemplateUsed(response, 'regular_employee.html')
+
+
+    def test_project_ceo(self):
+        # Created new Object of Client
+        client = Client()
+
+        response = client.get(reverse('ceo_details'))
+
+        # Check if we got an OK Http Response
+        self.assertEquals(response.status_code, 200)  # 200 = http OK, we were able to access
+
+        # Check if we loaded the Correct Template i.e. HTML page
+        self.assertTemplateUsed(response, 'ceo_details.html')
 # -------------------------------------------------------------------------------
 
 
