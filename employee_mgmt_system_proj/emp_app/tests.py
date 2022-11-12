@@ -68,6 +68,36 @@ class test_templates_exist(SimpleTestCase):
 
         assert isfile('emp_app/templates/filter_emp.html')
 
+    def test_manager_of_company(self):
+        #Checks if the page to add employee exists
+        file_name = 'emp_app/templates/manager_of_company.html'
+        if not isfile(file_name):
+            print("File " + file_name + " Does Not Exist, Test Case Failed")
+        else:
+            print("File Exists Test Case is Successful")
+
+        assert isfile('emp_app/templates/manager_of_company.html')
+
+    def test_reg_emp_of_company(self):
+        #Checks if the page to add employee exists
+        file_name = 'emp_app/templates/regular_employee.html'
+        if not isfile(file_name):
+            print("File " + file_name + " Does Not Exist, Test Case Failed")
+        else:
+            print("File Exists Test Case is Successful")
+
+        assert isfile('emp_app/templates/regular_employee.html')
+
+    def test_ceo_of_company(self):
+        # Checks if the page to add employee exists
+        file_name = 'emp_app/templates/ceo_details.html'
+        if not isfile(file_name):
+            print("File " + file_name + " Does Not Exist, Test Case Failed")
+        else:
+            print("File Exists Test Case is Successful")
+
+        assert isfile('emp_app/templates/ceo_details.html')
+
 
 
 # --------------------------------------------------------------------------------
