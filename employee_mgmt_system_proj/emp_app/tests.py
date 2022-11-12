@@ -18,7 +18,7 @@ import json
 # testing index function in views.py
 
 class test_templates_exist(SimpleTestCase):
-    # Testing if Index.html Exists
+    # Testing if Index.html Exists or Not
     def test_index(self):
         file_name = 'emp_app/templates/index.html'
         if not isfile(file_name):
