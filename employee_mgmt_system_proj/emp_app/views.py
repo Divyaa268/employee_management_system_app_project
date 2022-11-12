@@ -82,13 +82,13 @@ def filter_emp(request):
         print(emps)
         if name:
             pass
-            emps = emps.filter(Q(first_name__icontains = name) | Q(last_name__icontains = name))
+            emps = emps.filter(Q(first_name__icontains=name) | Q(last_name__icontains=name))
         if dept:
             pass
-            emps = emps.filter(dept__name__icontains = dept)
+            emps = emps.filter(dept__name__icontains=dept)
         if role:
             pass
-            emps = emps.filter(role__name__icontains = role)
+            emps = emps.filter(role__name__icontains=role)
 
         context = {
             'emps': emps
@@ -104,6 +104,7 @@ def filter_emp(request):
 def manager_of_company(request):
     cursor = connection.cursor()
     # Example of Parameterised Query as Expected in the Project
+    # SQL Query Bind Parameter.
     parameter_is_manager = 'Y'  # Indicates that Employee is a Manager
     try:
         cursor.execute(
@@ -117,11 +118,11 @@ def manager_of_company(request):
     print(query)
     return render(request, 'manager_of_company.html', {'query': query})
 
-def ceo_details(request):
 
+def ceo_details(request):
     cursor = connection.cursor()
     try:
-        #Since CEO is a singleton class, the table emp_app_ceo has only one entry
+        # Since CEO is a singleton class, the table emp_app_ceo has only one entry
         cursor.execute('select * from emp_app_ceo')
     except:
         print("Exception Occurred in get_ceo_details()")
@@ -134,5 +135,20 @@ def ceo_details(request):
         return render(request, 'ceo_details.html', {'query': query})
 
 
+def regular_employee(request):
+    cursor = connection.cursor()
+    # SQL Query Bind Parameter.
+    parameter_is_manager = 'N'  # These are Regular Employees not Managers
+    try:
+        # Parameterised Query
+        cursor.execute(
+            "SELECT first_name, last_name, phone FROM emp_app_employee where is_manager = " + "\'" + parameter_is_manager + "\'")
+    except:
+        print("Exception Occurred in get_ceo_details()")
+    finally:
+        emps = cursor.fetchall()
+        cursor.close()
+        print("Regular Employees are")
+        print(emps)
 
-
+        return render(request, 'regular_employee.html', {'emps': emps})

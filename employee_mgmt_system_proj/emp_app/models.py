@@ -9,12 +9,22 @@ class Department(models.Model):
     name = models.CharField(max_length=100)
     location = models.CharField(max_length=100)
 
+    class Meta:
+        managed = False
+        db_table = 'emp_app_department'
+
+
     def __str__(self):
         return self.name
 
 
 class Role(models.Model):
     name = models.CharField(max_length=100, null=False)
+
+    class Meta:
+        managed = False
+        db_table = 'emp_app_role'
+
 
     def __str__(self):
         return self.name
@@ -30,6 +40,11 @@ class Employee(models.Model):
     phone = models.IntegerField(default=0)
     hire_date = models.DateField()
     is_manager = models.CharField(max_length=100, default = 'N')
+
+    class Meta:
+        managed = False
+        db_table = 'emp_app_employee'
+
 
     def __str__(self):
         return "%s %s %s" % (self.first_name, self.last_name, self.phone)
