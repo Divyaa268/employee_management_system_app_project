@@ -32,4 +32,6 @@ urlpatterns = [
     path('remove_emp', views.remove_emp, name='remove_emp'),
     path('remove_emp/<int:emp_id>', views.remove_emp, name='remove_emp'),
     path('filter_emp', views.filter_emp, name='filter_emp'),
+    path('manager_of_company', views.manager_of_company, name='manager_of_company'),
+    path('ceo_details', views.ceo_details, name='ceo_details'),
 ]

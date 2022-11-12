@@ -2,6 +2,7 @@ from django.shortcuts import render, HttpResponse
 from .models import Employee, Role, Department
 from datetime import datetime
 from django.db.models import Q
+from django.db import connection
 
 
 # Create your views here.
@@ -35,6 +36,7 @@ def add_emp(request):
     else:
         return HttpResponse("Entity could not be added!!!")
 
+
 def all_emp(request):
     print("inside routine all_emp()")
 
@@ -53,7 +55,8 @@ def all_emp(request):
     print("Returning the rendered Page...")
     return render(request, 'view_all_emp.html', context)
 
-def remove_emp(request, emp_id = 0):
+
+def remove_emp(request, emp_id=0):
     if emp_id:
         try:
             emp_to_be_removed = Employee.objects.get(id=emp_id)
@@ -65,7 +68,7 @@ def remove_emp(request, emp_id = 0):
     context = {
         'emps': emps
     }
-    return render(request, 'remove_emp.html',context)
+    return render(request, 'remove_emp.html', context)
 
 
 def filter_emp(request):
@@ -74,11 +77,17 @@ def filter_emp(request):
         dept = request.POST['dept']
         role = request.POST['role']
         emps = Employee.objects.all()
+
+        print("Employees are :")
+        print(emps)
         if name:
+            pass
             emps = emps.filter(Q(first_name__icontains = name) | Q(last_name__icontains = name))
         if dept:
+            pass
             emps = emps.filter(dept__name__icontains = dept)
         if role:
+            pass
             emps = emps.filter(role__name__icontains = role)
 
         context = {
@@ -90,5 +99,40 @@ def filter_emp(request):
         return render(request, 'filter_emp.html')
     else:
         return HttpResponse('An Exception Occurred')
+
+
+def manager_of_company(request):
+    cursor = connection.cursor()
+    # Example of Parameterised Query as Expected in the Project
+    parameter_is_manager = 'Y'  # Indicates that Employee is a Manager
+    try:
+        cursor.execute(
+            "SELECT first_name, last_name, phone FROM emp_app_employee where is_manager = " + "\'" + parameter_is_manager + "\'")
+    except:
+        print("Exception Occurred in manager_of_company() ")
+    finally:
+        query = cursor.fetchall()
+        cursor.close()
+    print("Manager Records are : ")
+    print(query)
+    return render(request, 'manager_of_company.html', {'query': query})
+
+def ceo_details(request):
+
+    cursor = connection.cursor()
+    try:
+        #Since CEO is a singleton class, the table emp_app_ceo has only one entry
+        cursor.execute('select * from emp_app_ceo')
+    except:
+        print("Exception Occurred in get_ceo_details()")
+    finally:
+        query = cursor.fetchall()
+        cursor.close()
+        print("CEO of the Company is ")
+        print(query)
+
+        return render(request, 'ceo_details.html', {'query': query})
+
+
 
 
