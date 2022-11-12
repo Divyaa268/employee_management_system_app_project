@@ -9,9 +9,9 @@ class Department(models.Model):
     name = models.CharField(max_length=100)
     location = models.CharField(max_length=100)
 
-    class Meta:
-        managed = False
-        db_table = 'emp_app_department'
+    # class Meta:
+    #     managed = False
+    #     db_table = 'emp_app_department'
 
 
     def __str__(self):
@@ -21,9 +21,9 @@ class Department(models.Model):
 class Role(models.Model):
     name = models.CharField(max_length=100, null=False)
 
-    class Meta:
-        managed = False
-        db_table = 'emp_app_role'
+    # class Meta:
+    #     managed = False
+    #     db_table = 'emp_app_role'
 
 
     def __str__(self):
@@ -41,9 +41,9 @@ class Employee(models.Model):
     hire_date = models.DateField()
     is_manager = models.CharField(max_length=100, default = 'N')
 
-    class Meta:
-        managed = False
-        db_table = 'emp_app_employee'
+    # class Meta:
+    #     managed = False
+    #     db_table = 'emp_app_employee'
 
 
     def __str__(self):
