@@ -60,13 +60,19 @@ class CEO(SingletonModel):
     full_name = models.CharField(max_length=100, null=False)
     phone_number = models.IntegerField(default=0)
 
-
+    class Meta:
+        managed = True
+        db_table = 'emp_app_ceo'
 
 
 class BestPerformers(Employee):
     # This Class Inherits from Employee Class
     award_title = models.CharField(max_length=100, null=False)
     date_awarded = models.DateField()
+
+    class Meta:
+        managed = True
+        db_table = 'emp_app_bestperformers'
 
 
 

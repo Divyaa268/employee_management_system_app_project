@@ -23,10 +23,14 @@ def add_emp(request):
         dept = int(request.POST['dept'])
         role = int(request.POST['role'])
 
+        print(f"{first_name} {last_name} {salary} {bonus} {phone} {phone} {dept} {role}")
+
         print("Creating New Entry to save in the DB.....")
         new_emp = Employee(first_name=first_name, last_name=last_name, salary=salary, bonus=bonus, phone=phone,
-                           dept_id=dept, role_id=role, hire_date=datetime.now())
+                           dept_id=dept, role_id=role, hire_date=datetime.now(),is_manager='N')
+
         print("Saving Entry in the DB.....")
+        print(new_emp)
         new_emp.save()
         print("Entry Added Successfully...")
         return HttpResponse('New Entity added Successfully')
