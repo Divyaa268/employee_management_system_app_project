@@ -122,7 +122,7 @@ def ceo_details(request):
     cursor = connection.cursor()
     try:
         #Since CEO is a singleton class, the table emp_app_ceo has only one entry
-        cursor.execute('select * from emp_app_ceo')
+        cursor.execute('select emp_id,full_name,phone_number from emp_app_ceo')
     except:
         print("Exception Occurred in get_ceo_details()")
     finally:

@@ -11,6 +11,11 @@ class Department(models.Model):
 
     def __str__(self):
         return self.name
+    class Meta:
+        managed = True
+        db_table = 'emp_app_department'
+
+
 
 
 class Role(models.Model):
@@ -18,6 +23,10 @@ class Role(models.Model):
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        managed = True
+        db_table = 'emp_app_role'
 
 
 class Employee(models.Model):
@@ -33,11 +42,15 @@ class Employee(models.Model):
 
     def __str__(self):
         return "%s %s %s" % (self.first_name, self.last_name, self.phone)
+    class Meta:
+        managed = True
+        db_table = 'emp_app_employee'
 
 
 class SingletonModel(models.Model):
+
     def save(self, *args, **kwargs):
-        self.obj.pk = 1
+        self.pk = 1
         super().save(*args, **kwargs)
 
 
@@ -48,10 +61,14 @@ class CEO(SingletonModel):
     phone_number = models.IntegerField(default=0)
 
 
+
+
 class BestPerformers(Employee):
     # This Class Inherits from Employee Class
     award_title = models.CharField(max_length=100, null=False)
     date_awarded = models.DateField()
+
+
 
     def __str__(self):
         return "%s %s %s %s" % (self.first_name, self.last_name, self.award_title, self.date_awarded)
