@@ -29,7 +29,7 @@ class Employee(models.Model):
     role = models.ForeignKey(Role, on_delete=models.CASCADE)
     phone = models.IntegerField(default=0)
     hire_date = models.DateField()
-    is_manager = models.CharField(max_length=100, default = 'N')
+    is_manager = models.CharField(max_length=100, default='N')
 
     def __str__(self):
         return "%s %s %s" % (self.first_name, self.last_name, self.phone)
@@ -46,3 +46,12 @@ class CEO(SingletonModel):
     emp_id = models.IntegerField(null=False, primary_key=True)
     full_name = models.CharField(max_length=100, null=False)
     phone_number = models.IntegerField(default=0)
+
+
+class BestPerformers(Employee):
+    # This Class Inherits from Employee Class
+    award_title = models.CharField(max_length=100, null=False)
+    date_awarded = models.DateField()
+
+    def __str__(self):
+        return "%s %s %s %s" % (self.first_name, self.last_name, self.award_title, self.date_awarded)

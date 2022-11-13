@@ -146,9 +146,24 @@ def regular_employee(request):
     finally:
         query = cursor.fetchall()
         cursor.close()
-    print("Manager Records are : ")
+    print("Regular EMP Records are : ")
     print(query)
     return render(request, 'regular_employee.html', {'query': query})
 
 
 
+def best_performers(request):
+    cursor = connection.cursor()
+    # Example of Parameterised Query as Expected in the Project
+    parameter_is_manager = 'N'  # Indicates that Employee is a Manager
+    try:
+        cursor.execute(
+            "SELECT * FROM emp_app_bestperformers")
+    except:
+        print("Exception Occurred in manager_of_company() ")
+    finally:
+        query = cursor.fetchall()
+        cursor.close()
+    print("Best Performer Records are : ")
+    print(query)
+    return render(request, 'best_performers.html', {'query': query})

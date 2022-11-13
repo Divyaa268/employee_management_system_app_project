@@ -8,7 +8,7 @@
 
 <style>
   body{
-background-image:url('https://images6.alphacoders.com/542/542776.jpg');
+background-image:url('https://mcdn.wallpapersafari.com/medium/87/34/Lg6lOC.jpg');
 background-repeat:no-repeat;
 background-size:100%;
 }
@@ -21,9 +21,10 @@ background-size:100%;
          <table class="table table-dark">
   <thead>
     <tr>
-      <th scope="col">EMP_ID</th>
-      <th scope="col">FULL NAME</th>
-      <th scope="col">Phone Number </th>
+      <th scope="col">First Name</th>
+      <th scope="col">Last Name </th>
+      <th scope="col">Award Given </th>
+       <th scope="col">Date Of Award </th>
     </tr>
   </thead>
   {% for obj in query %}
@@ -32,6 +33,7 @@ background-size:100%;
      <td>{{obj.0}}</td>
      <td>{{obj.1}}</td>
         <td>{{obj.2}}</td>
+        <td>{{obj.3}}</td>
     </tr>
     </tbody>
      {% endfor %}
