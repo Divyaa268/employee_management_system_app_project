@@ -62,16 +62,21 @@ def all_emp(request):
 
     cursor = connection.cursor()
     try:
-        cursor.execute('')
-    except:
+        # Complex SQL Join Query
+        cursor.execute('select  emp_app_employee.id, first_name, last_name, salary, bonus, phone, emp_app_role.name, '
+                       'emp_app_department.name, '
+                       'emp_app_department.location, hire_date from emp_app_employee, emp_app_department, '
+                       'emp_app_role where '
+                       'emp_app_employee.dept_id = emp_app_department.id and emp_app_employee.role_id = emp_app_role.id')
+    except Exception as E:
         print("Exception Occurred in all_emp() ")
+        print(E)
     finally:
-        query = cursor.fetchall()
+        emps = cursor.fetchall()
         cursor.close()
     print("View All Employee records are : ")
-    print(query)
-    return render(request, 'view_all_emp.html', {'query': query})
-
+    print(emps)
+    return render(request, 'view_all_emp.html', {'emps': emps})
 
 
 def remove_emp(request, emp_id=0):
