@@ -12,6 +12,7 @@ def index(request):
 
 def add_emp(request):
     print("add_emp() routine started.....")
+    print(request)
     # we will reach below code when we need to add new employee
     if request.method == 'POST':
         print("Request Method is POST")
@@ -162,7 +163,7 @@ def best_performers(request):
     parameter_is_manager = 'N'  # Indicates that Employee is a Manager
     try:
         cursor.execute(
-            "SELECT * FROM emp_app_bestperformers")
+            "SELECT emp_app_employee.first_name, emp_app_employee.last_name, award_title, date_awarded FROM emp_app_bestperformers, emp_app_employee where emp_app_employee.id = emp_app_bestperformers.employee_ptr_id")
     except:
         print("Exception Occurred in manager_of_company() ")
     finally:
