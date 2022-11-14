@@ -11,11 +11,10 @@ class Department(models.Model):
 
     def __str__(self):
         return self.name
+
     class Meta:
         managed = True
         db_table = 'emp_app_department'
-
-
 
 
 class Role(models.Model):
@@ -42,6 +41,7 @@ class Employee(models.Model):
 
     def __str__(self):
         return "%s %s %s" % (self.first_name, self.last_name, self.phone)
+
     class Meta:
         managed = True
         db_table = 'emp_app_employee'
@@ -73,8 +73,6 @@ class BestPerformers(Employee):
     class Meta:
         managed = True
         db_table = 'emp_app_bestperformers'
-
-
 
     def __str__(self):
         return "%s %s %s %s" % (self.first_name, self.last_name, self.award_title, self.date_awarded)

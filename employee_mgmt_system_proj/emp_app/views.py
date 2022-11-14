@@ -28,7 +28,7 @@ def add_emp(request):
 
         print("Creating New Entry to save in the DB.....")
         new_emp = Employee(first_name=first_name, last_name=last_name, salary=salary, bonus=bonus, phone=phone,
-                           dept_id=dept, role_id=role, hire_date=datetime.now(),is_manager='N')
+                           dept_id=dept, role_id=role, hire_date=datetime.now(), is_manager='N')
 
         print("Saving Entry in the DB.....")
         print(new_emp)
@@ -87,13 +87,13 @@ def filter_emp(request):
         print(emps)
         if name:
             pass
-            emps = emps.filter(Q(first_name__icontains = name) | Q(last_name__icontains = name))
+            emps = emps.filter(Q(first_name__icontains=name) | Q(last_name__icontains=name))
         if dept:
             pass
-            emps = emps.filter(dept__name__icontains = dept)
+            emps = emps.filter(dept__name__icontains=dept)
         if role:
             pass
-            emps = emps.filter(role__name__icontains = role)
+            emps = emps.filter(role__name__icontains=role)
 
         context = {
             'emps': emps
@@ -122,11 +122,11 @@ def manager_of_company(request):
     print(query)
     return render(request, 'manager_of_company.html', {'query': query})
 
-def ceo_details(request):
 
+def ceo_details(request):
     cursor = connection.cursor()
     try:
-        #Since CEO is a singleton class, the table emp_app_ceo has only one entry
+        # Since CEO is a singleton class, the table emp_app_ceo has only one entry
         cursor.execute('select emp_id,full_name,phone_number from emp_app_ceo')
     except:
         print("Exception Occurred in get_ceo_details()")
@@ -156,14 +156,15 @@ def regular_employee(request):
     return render(request, 'regular_employee.html', {'query': query})
 
 
-
 def best_performers(request):
     cursor = connection.cursor()
     # Example of Parameterised Query as Expected in the Project
     parameter_is_manager = 'N'  # Indicates that Employee is a Manager
     try:
         cursor.execute(
-            "SELECT emp_app_employee.first_name, emp_app_employee.last_name, award_title, date_awarded FROM emp_app_bestperformers, emp_app_employee where emp_app_employee.id = emp_app_bestperformers.employee_ptr_id")
+            "SELECT emp_app_employee.first_name, emp_app_employee.last_name, award_title, date_awarded FROM "
+            "emp_app_bestperformers, emp_app_employee where emp_app_employee.id = "
+            "emp_app_bestperformers.employee_ptr_id")
     except:
         print("Exception Occurred in manager_of_company() ")
     finally:
