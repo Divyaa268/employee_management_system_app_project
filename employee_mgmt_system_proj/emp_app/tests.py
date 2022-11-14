@@ -166,7 +166,24 @@ class TestUrls(SimpleTestCase):
         print(resolve(url))  # Printing what we get after resolving the URL, i.e. method to be called
 
         self.assertEquals(resolve(url).func, views.ceo_details)  # It should Route to this function
+    
+    # path('addEmp', views.addEmp, name='addEmp'),
 
+    def test_filter_allempnp_url_resolved(self):
+    # path('getAllEmp', views.getAllEmp, name='getAllEmp'),
+        url = reverse('getAllEmp')
+        print("url is : " + url)  # Returns '/' : the Path we defined
+        print(resolve(url))  # Printing what we get after resolving the URL, i.e. method to be called
+
+        self.assertEquals(resolve(url).func, views.getAllEmp)  # It should Route to this function
+
+    def test_filter_allempnp_url_resolved(self):
+    # path('addEmp', views.addEmp, name='addEmp'),
+        url = reverse('addEmp')
+        print("url is : " + url)  # Returns '/' : the Path we defined
+        print(resolve(url))  # Printing what we get after resolving the URL, i.e. method to be called
+
+        self.assertEquals(resolve(url).func, views.addEmp)  # It should Route to this function        
 
 # --------------------------------------------------------
 
@@ -267,4 +284,18 @@ class TestViews(TestCase):
 
         # Check if we loaded the Correct Template i.e. HTML page
         self.assertTemplateUsed(response, 'ceo_details.html')
-# -------------------------------------------------------------------------------
+
+
+    def test_get_ep(self):
+        client = Client()
+
+        response = client.get(reverse('getAllEmp'))
+        # Check if we got an OK Http Response
+        self.assertEquals(response.status_code, 200)  # 200 = http OK, we were able to access
+
+    def test_add_ep(self):
+        client = Client()
+
+        response = client.post(reverse('addEmp'))
+        # Check if we got an OK Http Response
+        self.assertEquals(response.status_code, 200)  # 200 = http OK, we were able to access
