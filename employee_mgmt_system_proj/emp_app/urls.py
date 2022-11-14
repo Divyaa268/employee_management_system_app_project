@@ -36,4 +36,6 @@ urlpatterns = [
     path('ceo_details', views.ceo_details, name='ceo_details'),
     path('regular_employee', views.regular_employee, name='regular_employee'),
     path('best_performers', views.best_performers, name='best_performers'),
+    path('getAllEmp', views.getAllEmp, name='getAllEmp'),
+    path('addEmp', views.addEmp, name='addEmp'),
 ]

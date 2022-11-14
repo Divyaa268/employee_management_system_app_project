@@ -3,7 +3,9 @@ from .models import Employee, Role, Department
 from datetime import datetime
 from django.db.models import Q
 from django.db import connection
-
+from rest_framework.response import  Response
+from rest_framework.decorators import api_view
+from .serializers import EmployeeSerializer
 
 # Create your views here.
 def index(request):
@@ -43,22 +45,6 @@ def add_emp(request):
 
 
 def all_emp(request):
-    # print("inside routine all_emp()")
-    #
-    # print("View All Employee Data")
-    #
-    # print("Fetching all Employees from DB.....")
-    # emps = Employee.objects.all()
-    # print("Data Fetched Successfully....")
-    #
-    # print("Loading Data into Context, for it to be rendered on the webpage")
-    # context = {
-    #     'emps': emps
-    # }
-    # print(context)
-    # print("Data Loaded into context successfully....")
-    # print("Returning the rendered Page...")
-    # return render(request, 'view_all_emp.html', context)
 
     cursor = connection.cursor()
     try:
@@ -191,3 +177,19 @@ def best_performers(request):
     print("Best Performer Records are : ")
     print(query)
     return render(request, 'best_performers.html', {'query': query})
+
+
+@api_view(['GET'])
+def getAllEmp(request):
+    emps = Employee.objects.all()
+    serializer = EmployeeSerializer(emps, many=True)
+
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+def addEmp(request):
+    serializer = EmployeeSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+    return Response(serializer.data)
