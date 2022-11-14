@@ -82,6 +82,7 @@ def remove_emp(request, emp_id=0):
 
 def filter_emp(request):
     if request.method == 'POST':
+        print("Inside Post")
         name = request.POST['name']
         dept = request.POST['dept']
         role = request.POST['role']
@@ -90,19 +91,16 @@ def filter_emp(request):
         print("Employees are :")
         print(emps)
         if name:
-            pass
             emps = emps.filter(Q(first_name__icontains=name) | Q(last_name__icontains=name))
         if dept:
-            pass
             emps = emps.filter(dept__name__icontains=dept)
         if role:
-            pass
             emps = emps.filter(role__name__icontains=role)
 
         context = {
             'emps': emps
         }
-        return render(request, 'view_all_emp.html', context)
+        return render(request, 'view_filtered_employees.html', context)
 
     elif request.method == 'GET':
         return render(request, 'filter_emp.html')

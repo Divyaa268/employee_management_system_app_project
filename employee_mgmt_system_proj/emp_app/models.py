@@ -44,7 +44,7 @@ class Employee(models.Model):
 
     class Meta:
         managed = True
-        db_table = 'emp_app_employee'
+        db_table = 'emp_app_employee'# DB Table Linking
 
 
 class SingletonModel(models.Model):
@@ -62,7 +62,7 @@ class CEO(SingletonModel):
 
     class Meta:
         managed = True
-        db_table = 'emp_app_ceo'
+        db_table = 'emp_app_ceo'# DB table linking to python Class
 
 
 class BestPerformers(Employee):
