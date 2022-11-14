@@ -43,22 +43,35 @@ def add_emp(request):
 
 
 def all_emp(request):
-    print("inside routine all_emp()")
+    # print("inside routine all_emp()")
+    #
+    # print("View All Employee Data")
+    #
+    # print("Fetching all Employees from DB.....")
+    # emps = Employee.objects.all()
+    # print("Data Fetched Successfully....")
+    #
+    # print("Loading Data into Context, for it to be rendered on the webpage")
+    # context = {
+    #     'emps': emps
+    # }
+    # print(context)
+    # print("Data Loaded into context successfully....")
+    # print("Returning the rendered Page...")
+    # return render(request, 'view_all_emp.html', context)
 
-    print("View All Employee Data")
+    cursor = connection.cursor()
+    try:
+        cursor.execute('')
+    except:
+        print("Exception Occurred in all_emp() ")
+    finally:
+        query = cursor.fetchall()
+        cursor.close()
+    print("View All Employee records are : ")
+    print(query)
+    return render(request, 'view_all_emp.html', {'query': query})
 
-    print("Fetching all Employees from DB.....")
-    emps = Employee.objects.all()
-    print("Data Fetched Successfully....")
-
-    print("Loading Data into Context, for it to be rendered on the webpage")
-    context = {
-        'emps': emps
-    }
-    print(context)
-    print("Data Loaded into context successfully....")
-    print("Returning the rendered Page...")
-    return render(request, 'view_all_emp.html', context)
 
 
 def remove_emp(request, emp_id=0):
