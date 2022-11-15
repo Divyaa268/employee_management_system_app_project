@@ -3,9 +3,10 @@ from .models import Employee, Role, Department
 from datetime import datetime
 from django.db.models import Q
 from django.db import connection
-from rest_framework.response import  Response
+from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from .serializers import EmployeeSerializer
+
 
 # Create your views here.
 def index(request):
@@ -44,7 +45,7 @@ def add_emp(request):
         return HttpResponse("Entity could not be added!!!")
 
 
-def all_emp(request):
+def all_emp(request):  # Request Comes Here to this Function
 
     cursor = connection.cursor()
     try:
@@ -53,7 +54,7 @@ def all_emp(request):
                        'emp_app_department.name, '
                        'emp_app_department.location, hire_date from emp_app_employee, emp_app_department, '
                        'emp_app_role where '
-                       'emp_app_employee.dept_id = emp_app_department.id and emp_app_employee.role_id = emp_app_role.id')
+                       'emp_app_employee.dept_id = emp_app_department.id and emp_app_employee.role_id = emp_app_role.id')  # Join with Roles and Department Tables
     except Exception as E:
         print("Exception Occurred in all_emp() ")
         print(E)

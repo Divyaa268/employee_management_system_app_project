@@ -44,7 +44,7 @@ class Employee(models.Model):
 
     class Meta:
         managed = True
-        db_table = 'emp_app_employee'# DB Table Linking
+        db_table = 'emp_app_employee'  # DB Table Linking
 
 
 class SingletonModel(models.Model):
@@ -62,7 +62,7 @@ class CEO(SingletonModel):
 
     class Meta:
         managed = True
-        db_table = 'emp_app_ceo'# DB table linking to python Class
+        db_table = 'emp_app_ceo'  # DB table linking to python Class
 
 
 class BestPerformers(Employee):
@@ -72,7 +72,7 @@ class BestPerformers(Employee):
 
     class Meta:
         managed = True
-        db_table = 'emp_app_bestperformers'
+        db_table = 'emp_app_bestperformers'  # data persisted in this table for this Class
 
     def __str__(self):
         return "%s %s %s %s" % (self.first_name, self.last_name, self.award_title, self.date_awarded)
